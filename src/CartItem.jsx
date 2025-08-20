@@ -6,12 +6,12 @@ const Cart = ({ onContinueShopping }) => {
   const cartItems = useSelector((state) => state.cart.items);
   const dispatch = useDispatch();
 
-  // ✅ Subtotal for each plant type
+  // Subtotal for each plant type
   const calculateTotalCost = (item) => {
     return item.price * item.quantity;
   };
 
-  // ✅ Total for all items
+  // Total for all items
   const calculateTotalAmount = () => {
     return cartItems.reduce(
       (total, item) => total + item.price * item.quantity,
@@ -19,24 +19,24 @@ const Cart = ({ onContinueShopping }) => {
     );
   };
 
-  // ✅ Increment quantity
+  // Increment quantity
   const handleIncrement = (item) => {
     dispatch(updateQuantity({ id: item.id, quantity: item.quantity + 1 }));
   };
 
-  // ✅ Decrement quantity (but not below 1)
+  // Decrement quantity (but not below 1)
   const handleDecrement = (item) => {
     if (item.quantity > 1) {
       dispatch(updateQuantity({ id: item.id, quantity: item.quantity - 1 }));
     }
   };
 
-  // ✅ Remove plant type
+  // Remove plant type
   const handleRemove = (item) => {
     dispatch(removeItem(item.id));
   };
 
-  // ✅ Continue shopping
+  // Continue shopping
   const handleContinueShopping = () => {
     onContinueShopping();
   };
