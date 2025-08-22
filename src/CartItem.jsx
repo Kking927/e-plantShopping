@@ -7,14 +7,31 @@ const CartItem = ({ onContinueShopping }) => {
   const cart = useSelector((state) => state.cart.items);
   const dispatch = useDispatch();
 
+  // Safely parse price from string or number
+  const parsePrice = (cost) => {
+    if (typeof cost === "string") {
+      return parseFloat(cost.replace('$','')) || 0;
+    } else if (typeof cost === "number") {
+      return cost;
+    } else {
+      return 0;
+    }
+  };
+
   // Calculate total amount for all products in the cart
   const calculateTotalAmount = () => {
     let total = 0;
     cart.forEach((item) => {
-      const price = parseFloat(item.cost.substring(1)); // remove "$" and convert
+      const price = parsePrice(item.cost);
       total += price * item.quantity;
     });
-    return total.toFixed(2); // format to 2 decimal places
+    return total.toFixed(2); 
+  };
+
+  // Calculate subtotal for an item
+  const calculateTotalCost = (item) => {
+    const price = parsePrice(item.cost);
+    return (price * item.quantity).toFixed(2);
   };
 
   // Continue shopping
@@ -41,12 +58,6 @@ const CartItem = ({ onContinueShopping }) => {
     dispatch(removeItem(item.name));
   };
 
-  // Calculate subtotal for an item
-  const calculateTotalCost = (item) => {
-    const price = parseFloat(item.cost.substring(1));
-    return (price * item.quantity).toFixed(2);
-  };
-
   return (
     <div className="cart-container">
       <h2 style={{ color: 'black' }}>
@@ -58,7 +69,7 @@ const CartItem = ({ onContinueShopping }) => {
             <img className="cart-item-image" src={item.image} alt={item.name} />
             <div className="cart-item-details">
               <div className="cart-item-name">{item.name}</div>
-              <div className="cart-item-cost">${item.cost}</div>
+              <div className="cart-item-cost">${parsePrice(item.cost)}</div>
               <div className="cart-item-quantity">
                 <button
                   className="cart-item-button cart-item-button-dec"
