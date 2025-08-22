@@ -89,9 +89,6 @@ const CartItem = ({ onContinueShopping }) => {
           </div>
         ))}
       </div>
-      <div className="cart-total" style={{ marginTop: '20px', fontWeight: 'bold' }}>
-        Cart Total: ${calculateTotalAmount()}
-      </div>
       <div className="continue_shopping_btn">
         <button
           className="get-started-button"

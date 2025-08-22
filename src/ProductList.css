@@ -172,6 +172,16 @@ body {
     font-size: 29px;
 
 }
+.cart-count {
+    position: absolute; /* Position it absolutely */
+    top: 6.3%; /* Move it higher */
+    left: 96.7%; /* Move it further to the right */
+    transform: translate(-50%, -50%); /* Center the number */
+    color: white; /* Text color */
+    font-size: 25px; /* Font size */
+    font-weight: bold; /* Bold text */
+    z-index: 1; /* Ensure it appears above other elements */
+}
 .plantname_heading{
    display: flex;
    align-items: center;
