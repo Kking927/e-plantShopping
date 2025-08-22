@@ -7,16 +7,16 @@ const CartItem = ({ onContinueShopping }) => {
   const cart = useSelector((state) => state.cart.items);
   const dispatch = useDispatch();
 
-  // Safely parse price from string or number
-  const parsePrice = (cost) => {
-    if (typeof cost === "string") {
-      return parseFloat(cost.replace('$','')) || 0;
-    } else if (typeof cost === "number") {
-      return cost;
-    } else {
-      return 0;
-    }
-  };
+  // parse both numbers and strings for cart total
+const parsePrice = (cost) => {
+  if (typeof cost === "string") {
+    return parseFloat(cost) || 0; // converts "15" to 15, "0" to 0
+  } else if (typeof cost === "number") {
+    return cost;
+  } else {
+    return 0;
+  }
+};
 
   // Calculate total amount for all products in the cart
   const calculateTotalAmount = () => {
